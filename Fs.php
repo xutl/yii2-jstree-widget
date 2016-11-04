@@ -30,20 +30,9 @@ class Fs extends Object
     {
         parent::init();
         $this->base = FileHelper::normalizePath($this->base);
-        if (!$this->base) {
+        if (!is_dir($this->base)) {
             throw new \Exception('Base directory does not exist');
         }
-    }
-
-    /**
-     * 格式化路径
-     * @param string $id
-     * @return string
-     * @throws \Exception
-     */
-    protected function path($id)
-    {
-        return FileHelper::normalizePath($this->base . DIRECTORY_SEPARATOR . $id);
     }
 
     /**
@@ -132,7 +121,7 @@ class Fs extends Object
             $id = array_map([$this, 'id'], explode(':', $id));
             return ['type' => 'multiple', 'content' => 'Multiple selected: ' . implode(' ', $id)];
         }
-        $dir = $this->path($id);
+        $dir = FileHelper::normalizePath($this->base . DIRECTORY_SEPARATOR . $id);
         if (is_dir($dir)) {
             return ['type' => 'folder', 'content' => $id];
         }
