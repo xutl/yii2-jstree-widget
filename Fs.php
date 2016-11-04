@@ -100,9 +100,9 @@ class Fs extends Object
                 ];
             }
         }
-        if ($withRoot && $node === '/') {
+        if ($withRoot && $this->id($dir) === '/') {
             $files = [
-                ['text' => basename($this->base), 'children' => $files, 'id' => '/', 'icon' => 'folder',
+                ['text' => '/', 'children' => $files, 'id' => '/', 'icon' => 'folder',
                     'state' => ['opened' => true, 'disabled' => true]]
             ];
         }
@@ -132,7 +132,11 @@ class Fs extends Object
                 case 'txt':
                 case 'text':
                 case 'md':
+                case 'cs':
+                case 'asp':
+                case 'aspx':
                 case 'js':
+                case 'conf':
                 case 'json':
                 case 'css':
                 case 'html':
